@@ -1,99 +1,107 @@
 public class Main {
-
     public static void main(String[] args) {
 
-        Employee[] persArray = new Employee[5];
-        persArray[0] = new Employee("Иван Иванов", "Генеральный директор", "iv@mail.ru", "+79996665544", 250000, 55);
-        persArray[1] = new Employee("Петр Петрович", "Директор по развитию", "pt@mail.ru", "+79998884455", 127000, 42);
-        persArray[2] = new Employee("Эдуард Эдуардович", "Охранник", "ed@mail.ru", "+79997771234", 19000, 21);
-        persArray[3] = new Employee("Павел Павлович", "Ведущий разработчик", "pv@mail.ru", "+79995554789", 120000, 28);
-        persArray[4] = new Employee(
-                "Софья Сергеевна", "Директор по работе с клиентами", "ss@mail.ru", "+79994445896", 138000, 48
-        );
+        Cat korica = new Cat("Корица");
+        Cat lavrusha = new Cat("Лавруша");
+        Dog bobik = new Dog("Бобик");
+        Dog sharik = new Dog("Шарик");
 
-        Employee.outputUsers(persArray);
+        korica.animalInfo();
+        bobik.animalInfo();
 
-        Park[] attractions = new Park[3];
-        attractions[0] = new Park("Колесо обозрения", "Посмотри на город с высока", "9:00 - 18:00", 500);
-        attractions[1] = new Park("Центрифуга", "Почувствуй себя космонавтом", "11:00 - 15:00", 500);
-        attractions[2] = new Park("Американские горки", "Страшнее пауков", "12:00 - 16:00", 2300);
-
-        Park.outputAttractions(attractions);
-
+        korica.swim(3);
+        lavrusha.run(321);
+        bobik.swim(-1);
+        sharik.run(200);
     }
 }
 
 
-class Employee {
+class Animal {
     public String name;
-    public String position;
-    public String email;
-    public String phone_number;
-    public int salary;
-    public int age;
+    public String animalType;
 
-
-    public Employee(String name, String position, String email, String phone_number, int salary, int age) {
-        this.name = name;
-        this.position = position;
-        this.email = email;
-        this.phone_number = phone_number;
-        this.salary = salary;
-        this.age = age;
+    public Animal() {
     }
 
-    public static void outputUsers(Employee users[]) {
-        System.out.printf("%-3s%-1s%-9s%-1s%-5s%-1s%-14s%-1s%-7s%-1s%-17s%n",
-                "Имя", "|",
-                "Должность", "|",
-                "Email", "|",
-                "Номер телефона", "|",
-                "Возраст", "|",
-                "Заработная плата|"
-        );
-        System.out.println("___________________________________________________________");
-        for (int i = 0; i < users.length; i++) {
-            System.out.printf("%-27s%-1s%-40s%-1s%-14s%-1s%-18s%-1s%-10d%-1s%-5d%-1s%n",
-                    users[i].name, "|",
-                    users[i].position, "|",
-                    users[i].email, "|",
-                    users[i].phone_number, "|",
-                    users[i].salary, "|",
-                    users[i].age, "|"
-            );
+    public void animalInfo(){
+        System.out.println("__________________________________________");
+        System.out.println(("Вид животного: " + animalType));
+        System.out.println("Кличка: " + name);
+        System.out.println();
+    }
+
+    public void run(int distance){
+        System.out.println("__________________________________________");
+
+        if (distance < 0){
+            System.out.println("Такого расстояния не существует. Введите корректные данные");
         }
+
+        if (distance == 0){
+            System.out.println(animalType + " " + name + " Не бежал(-а)");
+        }
+
+        if (animalType.equals("Собака")){
+            if (distance > 0 && distance <= 500) {
+                System.out.println(animalType + " " + name + " Пробежал(-а) " + distance + " метров");
+            }
+            if ( distance > 500) {
+                System.out.println(animalType + " " + name + " Пробежал(-а) 500 метров, он(она) устал(-а).");
+                System.out.println("Оставшиеся " + (distance-500) + " метров добежит позже");
+            }
+        }
+
+        if (animalType.equals("Кот")){
+
+            if (distance > 0 && distance <= 200) {
+                System.out.println(animalType + " " + name + " Пробежал(-а) " + distance + " метров");
+            }
+            if ( distance > 200) {
+                System.out.println(animalType + " " + name + " Пробежал(-а) 200 метров, он(а) устал(-а).");
+                System.out.println("Оставшиеся " + (distance-200) + " метров добежит позже");
+            }
+        }
+        System.out.println();
+    }
+
+    public void swim(int distance){
+        System.out.println("__________________________________________");
+        if (distance < 0){
+            System.out.println("Такого расстояния не существует. Введите корректные данные");
+        }
+        if (animalType.equals("Кот")){
+            System.out.println("Алло! Коты не умеют плавать");
+            if (distance == 0){
+                System.out.println("Коты все равно не умеют плавать!!! Даже 0 метров!!!");
+            }
+        }
+        if (animalType.equals("Собака")){
+            if (distance == 0){
+                System.out.println(animalType + " " + name + " Не плыл(-а)");
+            }
+            if (distance > 0 && distance <= 10) {
+                System.out.println(animalType + " " + name + " Проплыл(-а) " + distance + " метров");
+            }
+            if ( distance > 10) {
+                System.out.println(animalType + " " + name + " Проплыл(-а) 10 метров, он(а) устал(-а).");
+                System.out.println("Оставшиеся " + (distance-10) + " метров проплывёт позже");
+            }
+        }
+        System.out.println();
     }
 }
 
-class Park{
-    public String name;
-    public  String description;
-    public String time;
-    public int price;
-
-    public Park(String name, String description, String time, int price){
+class Dog extends Animal {
+    public Dog(String name){
+        this.animalType = "Собака";
         this.name = name;
-        this.description = description;
-        this.time = time;
-        this.price = price;
     }
+}
 
-    public static void outputAttractions(Park attractions[]) {
-        System.out.println("Аттракционы");
-        System.out.printf("%-12s%-1s%-16s%-1s%-15s%-1s%-16s%n",
-                "Название", "|",
-                "Описание", "|",
-                "Часы работы", "|",
-                "Цена|"
-        );
-        System.out.println("___________________________________________________________");
-        for (int i = 0; i < attractions.length; i++) {
-            System.out.printf("%-22s%-1s%-30s%-1s%-15s%-1s%-16d%-1s%n",
-                    attractions[i].name, "|",
-                    attractions[i].description, "|",
-                    attractions[i].time, "|",
-                    attractions[i].price, "|"
-            );
-        }
+class Cat extends Animal {
+    public Cat(String name){
+        this.animalType = "Кот";
+        this.name = name;
     }
 }
